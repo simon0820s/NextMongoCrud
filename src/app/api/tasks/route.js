@@ -1,8 +1,13 @@
-import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
-function GET() {
+export function GET() {
   return NextResponse.json({
     message: "getTasks"
+  })
+}
+
+export function POST() {
+  return NextResponse.json({
+    message: "creating task"
   })
 }

@@ -8,6 +8,7 @@ export async function connectDB() {
   if (conn.isConnected) return;
 
   const db = await connect("mongodb://localhost/nextMongoCrud");
+  console.log("DB connected => ",db.connection.db.databaseName)
   conn.isConnected = db.connections[0].readyState;
 }
 

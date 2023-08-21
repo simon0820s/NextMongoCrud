@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/mongoose";
-export function GET() {
+import Task from "@/models/Task";
+
+export async function GET() {
   connectDB()
-  return NextResponse.json({
-    message: "getTasks"
-  })
+
+  const tasks = await Task.find()
+
+  return NextResponse.json(tasks)
 }
 
 export function POST() {

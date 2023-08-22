@@ -10,8 +10,12 @@ export async function GET() {
   return NextResponse.json(tasks)
 }
 
-export function POST() {
+export async function POST(request) {
+  
+  const data = await request.json()
+
+
   return NextResponse.json({
-    message: "creating task"
+    message: data
   })
 }

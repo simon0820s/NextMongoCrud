@@ -11,13 +11,20 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const data = await request.json();
+  try {
+    const data = await request.json();
 
-  const newTask = new Task(data);
+    const newTask = new Task(data);
 
-  const savedTask = await newTask.save();
+    const savedTask = await newTask.save();
 
-  console.log(savedTask);
+    console.log(savedTask);
 
-  return NextResponse.json(savedTask)
+    return NextResponse.json(savedTask);
+    
+  } catch (error) {
+    return NextResponse.json(error.message, {
+      status: 400,
+    });
+  }
 }

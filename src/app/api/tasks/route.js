@@ -19,7 +19,5 @@ export async function POST(request) {
 
   console.log(savedTask);
 
-  return NextResponse.json({
-    message: "task created",
-  });
+  return NextResponse.json(savedTask)
 }

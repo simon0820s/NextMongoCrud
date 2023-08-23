@@ -32,8 +32,12 @@ export function DELETE(request, { params }) {
   });
 }
 
-export function PUT(request, { params }) {
-  return NextResponse.json({
-    message: `updating task ${params.id} ...`,
-  });
+export async function PUT(request, { params }) {
+  try {
+    const data = await request.json()
+  } catch (error) {
+    return NextResponse.json(error.message, {
+      status: 400
+    })
+  }
 }

@@ -8,17 +8,19 @@ export async function GET(request, { params }) {
     const taskFound = await Task.findById(params.id);
 
     if (!taskFound) {
-      return NextResponse.json({
-        message: "task nof found",
-      },{
-        status: 404
-      });
+      return NextResponse.json(
+        {
+          message: "task nof found",
+        },
+        {
+          status: 404,
+        }
+      );
     }
 
     return NextResponse.json({
-      message: taskFound
+      message: taskFound,
     });
-
   } catch (error) {
     return NextResponse.json(error.message, {
       status: 400,
@@ -34,10 +36,18 @@ export function DELETE(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const data = await request.json()
+    const data = await request.json();
+
+    const updatedTask = await Task.findByIdAndUpdate(params.id, data, {
+      new: true
+    });
+
+    return NextResponse.json({
+      message: updatedTask,
+    });
   } catch (error) {
     return NextResponse.json(error.message, {
-      status: 400
-    })
+      status: 400,
+    });
   }
 }

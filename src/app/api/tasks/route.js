@@ -18,8 +18,6 @@ export async function POST(request) {
 
     const savedTask = await newTask.save();
 
-    console.log(savedTask);
-
     return NextResponse.json(savedTask);
     
   } catch (error) {

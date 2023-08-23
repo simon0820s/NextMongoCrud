@@ -28,10 +28,24 @@ export async function GET(request, { params }) {
   }
 }
 
-export function DELETE(request, { params }) {
-  return NextResponse.json({
-    message: `deleting task ${params.id} ...`,
-  });
+export async function DELETE(request, { params }) {
+  try {
+    const deletedTask = await Task.findByIdAndDelete(params.id);
+    if (!taskDeleted)
+      return NextResponse.json(
+        {
+          message: "Task not found",
+        },
+        {
+          status: 404,
+        }
+      );
+    return NextResponse.json({
+      message: deletedTask,
+    });
+  } catch (error) {
+    return NextResponse.json(error.message)
+  }
 }
 
 export async function PUT(request, { params }) {
@@ -39,7 +53,7 @@ export async function PUT(request, { params }) {
     const data = await request.json();
 
     const updatedTask = await Task.findByIdAndUpdate(params.id, data, {
-      new: true
+      new: true,
     });
 
     return NextResponse.json({

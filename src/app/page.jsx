@@ -10,7 +10,9 @@ async function loadTasks() {
 async function HomePage() {
   const tasks = await loadTasks()
   return (
-    <div>HomePage</div>
+    <div>{
+        JSON.stringify(tasks)
+      }</div>
   )
 }
 

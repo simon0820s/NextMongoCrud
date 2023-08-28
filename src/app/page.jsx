@@ -11,7 +11,7 @@ async function loadTasks() {
 async function HomePage() {
   const tasks = await loadTasks()
   return (
-    <div className="grid grid-cols-3 gap-2 px-2 py-4">
+    <div className="grid grid-cols-3 gap-2">
       {tasks.map(task => (
         <TaskCard key={task._id} task={task} />
       ))}

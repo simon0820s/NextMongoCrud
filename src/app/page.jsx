@@ -1,5 +1,6 @@
 import { connectDB } from "@/utils/mongoose"
 import Task from "@/models/Task"
+import TaskCard from "@/components/TaskCard"
 
 async function loadTasks() {
   connectDB()
@@ -10,9 +11,11 @@ async function loadTasks() {
 async function HomePage() {
   const tasks = await loadTasks()
   return (
-    <div>{
-        JSON.stringify(tasks)
-      }</div>
+    <div>
+      {tasks.map(task => (
+        <TaskCard key={task._id} task={task} />
+      ))}
+    </div>
   )
 }
 

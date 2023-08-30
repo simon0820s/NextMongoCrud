@@ -8,8 +8,13 @@ function FormPage() {
     description: ""
   })
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(newTask)
+  }
+
   const handleChange = (e) => {
-    console.log(e.target.value)
+    setNewTask({ ...newTask, [e.target.name]: [e.target.value] })
   }
 
   return (
@@ -17,7 +22,7 @@ function FormPage() {
       <div className="flex items-start w-full">
         <h1 className="text-lime-600 text-4xl font-bold text-start">Create a new task</h1>
       </div>
-      <form className="w-full">
+      <form onSubmit={handleSubmit} className="w-full">
         <input onChange={handleChange} type="text" name="title" placeholder="Title"
           className="bg-zinc-800 border-2 border-zinc-700 w-full p-4 rounded-lg my-4" />
         <textarea onChange={handleChange} name="description" placeholder="Description" rows={3}

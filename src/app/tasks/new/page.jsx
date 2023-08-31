@@ -10,7 +10,10 @@ function FormPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(newTask)
+    fetch('/api/tasks', {
+      method: "POST",
+      body: JSON.stringify(newTask)
+    })
   }
 
   const handleChange = (e) => {

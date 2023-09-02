@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { headers } from "../../../../next.config"
 
 function FormPage() {
   const [newTask, setNewTask] = useState({
@@ -8,17 +9,27 @@ function FormPage() {
     description: ""
   })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    fetch('/api/tasks', {
+  const createTask = async () => {
+    const res = await fetch('/api/tasks', {
       method: "POST",
-      body: JSON.stringify(newTask)
+      body: JSON.stringify({
+        "title": newTask.title[0],
+        "description": newTask.description[0]
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
+    const data = await res.json()
+    console.log(data)
   }
 
-  const handleChange = (e) => {
-    setNewTask({ ...newTask, [e.target.name]: [e.target.value] })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await createTask()
   }
+
+  const handleChange = (e) => setNewTask({ ...newTask, [e.target.name]: [e.target.value] })
 
   return (
     <div className="h-[calc(100vh-7rem)] flex flex-col justify-center items-center px-10 md:px-20">

@@ -22,7 +22,7 @@ export async function POST(request) {
     
   } catch (error) {
     return NextResponse.json(error.message, {
-      status: 400,
+      status: 200,
     });
   }
 }

@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { headers } from "../../../../next.config"
+import { useRouter } from "next/navigation"
 
 function FormPage() {
   const [newTask, setNewTask] = useState({
     title: "",
     description: ""
   })
+
+  const router = useRouter()
 
   const createTask = async () => {
     const res = await fetch('/api/tasks', {
@@ -21,6 +23,7 @@ function FormPage() {
       }
     })
     const data = await res.json()
+    router.push('/') 
     console.log(data)
   }
 

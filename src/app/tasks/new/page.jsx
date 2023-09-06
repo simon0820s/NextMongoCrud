@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useParams } from "next/navigation"
 
 function FormPage() {
   const [newTask, setNewTask] = useState({
@@ -10,6 +10,10 @@ function FormPage() {
   })
 
   const router = useRouter()
+  const params = useParams()
+  useEffect(() => {
+    console.log(params)
+  }, [])
 
   const createTask = async () => {
 
@@ -27,6 +31,7 @@ function FormPage() {
       })
       const data = await res.json()
       router.push('/')
+      router.refresh()
 
     } catch (error) {
       console.log(error)
@@ -44,7 +49,11 @@ function FormPage() {
   return (
     <div className="h-[calc(100vh-7rem)] flex flex-col justify-center items-center px-10 md:px-20">
       <div className="flex items-start w-full">
-        <h1 className="text-lime-600 text-4xl font-bold text-start">Create a new task</h1>
+        <h1 className="text-lime-600 text-4xl font-bold text-start">
+          {
+            !params.id ? "Create Task": "Update Task"
+          }
+        </h1>
       </div>
       <form onSubmit={handleSubmit} className="w-full">
         <input onChange={handleChange} type="text" name="title" placeholder="Title"

@@ -16,7 +16,10 @@ function FormPage() {
   const getTask = async () => {
     const res = await fetch(`/api/tasks/${params.id}`)
     const taskData = await res.json()
-    console.log(taskData)
+    setNewTask({
+      title: taskData.message.title,
+      description: taskData.message.description
+    })
   }
 
   const createTask = async () => {
@@ -45,7 +48,20 @@ function FormPage() {
 
   const updateTask = async () => {
     try {
-
+      const res = await fetch(`/api/tasks/${params.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          "title": newTask.title[0],
+          "description": newTask.description[0]
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const taskData = await res.json()
+      console.log(taskData)
+      router.push('/')
+      router.refresh()
     } catch (e) {
       console.log(e)
     }
@@ -56,7 +72,7 @@ function FormPage() {
     if (!params.id) {
       await createTask()
     } else {
-      console.log("updating")
+      updateTask()
     }
   }
 
@@ -93,9 +109,9 @@ function FormPage() {
         </div>
       </div>
       <form onSubmit={handleSubmit} className="w-full">
-        <input onChange={handleChange} type="text" name="title" placeholder="Title"
+        <input onChange={handleChange} type="text" value={newTask.title} name="title" placeholder="Title"
           className="bg-zinc-800 border-2 border-zinc-700 w-full p-4 rounded-lg my-4" />
-        <textarea onChange={handleChange} name="description" placeholder="Description" rows={3}
+        <textarea onChange={handleChange} value={newTask.description} name="description" placeholder="Description" rows={3}
           className="bg-zinc-800 border-2 border-zinc-700 w-full p-4 rounded-lg my-4"></textarea>
       </form>
       <div className="flex gap-2 w-full">

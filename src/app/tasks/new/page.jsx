@@ -13,6 +13,12 @@ function FormPage() {
   const router = useRouter()
   const params = useParams()
 
+  const getTask = async () => {
+    const res = await fetch(`/api/tasks/${params.id}`)
+    const taskData = await res.json()
+    console.log(taskData)
+  }
+
   const createTask = async () => {
     console.log("creating task")
     try {
@@ -37,9 +43,21 @@ function FormPage() {
 
   }
 
+  const updateTask = async () => {
+    try {
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await createTask()
+    if (!params.id) {
+      await createTask()
+    } else {
+      console.log("updating")
+    }
   }
 
   const handleDelete = async () => {
@@ -53,6 +71,12 @@ function FormPage() {
   }
 
   const handleChange = (e) => setNewTask({ ...newTask, [e.target.name]: [e.target.value] })
+
+  useEffect(() => {
+    if (params.id) {
+      getTask()
+    }
+  }, [])
 
   return (
     <div className="h-[calc(100vh-7rem)] flex flex-col justify-center items-center px-10 md:px-20">
@@ -76,7 +100,9 @@ function FormPage() {
       </form>
       <div className="flex gap-2 w-full">
         <button onClick={handleSubmit} className="bg-green-700 py-2 px-4 font-semibold text-neutral-300 rounded-lg">
-          Save
+          {
+            !params.id ? "Create" : "Update "
+          }
         </button>
         {
           params.id ? <button

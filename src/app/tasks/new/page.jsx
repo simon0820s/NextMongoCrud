@@ -43,7 +43,13 @@ function FormPage() {
   }
 
   const handleDelete = async () => {
-    console.log("deleting")
+    if (window.confirm("Are you sure you want to delete this task ?")) {
+      const res = await fetch(`/api/tasks/${params.id}`, {
+        method: "DELETE"
+      })
+    }
+    router.push('/')
+    router.refresh()
   }
 
   const handleChange = (e) => setNewTask({ ...newTask, [e.target.name]: [e.target.value] })

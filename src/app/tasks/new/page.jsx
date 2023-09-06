@@ -51,7 +51,7 @@ function FormPage() {
       <div className="flex items-start w-full">
         <h1 className="text-lime-600 text-4xl font-bold text-start">
           {
-            !params.id ? "Create Task": "Update Task"
+            !params.id ? "Create Task" : "Update Task"
           }
         </h1>
       </div>
@@ -60,9 +60,19 @@ function FormPage() {
           className="bg-zinc-800 border-2 border-zinc-700 w-full p-4 rounded-lg my-4" />
         <textarea onChange={handleChange} name="description" placeholder="Description" rows={3}
           className="bg-zinc-800 border-2 border-zinc-700 w-full p-4 rounded-lg my-4"></textarea>
-        <button className="bg-lime-600 py-2 px-4 font-semibold text-neutral-300 rounded-lg">
-          Save
-        </button>
+        <div className="flex">
+          <button className="bg-lime-600 py-2 px-4 font-semibold text-neutral-300 rounded-lg">
+            Save
+          </button>
+          <button
+            onClick={() => {
+              console.log("deleting")
+            }}
+          >
+            Delete
+          </button>
+        </div>
+
       </form>
     </div>
   )

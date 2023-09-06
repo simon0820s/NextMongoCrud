@@ -14,7 +14,7 @@ function FormPage() {
   const params = useParams()
 
   const createTask = async () => {
-
+    console.log("creating task")
     try {
 
       const res = await fetch('/api/tasks', {
@@ -42,8 +42,9 @@ function FormPage() {
     await createTask()
   }
 
-  useEffect(() => {
-  }, [])
+  const handleDelete = async () => {
+    console.log("deleting")
+  }
 
   const handleChange = (e) => setNewTask({ ...newTask, [e.target.name]: [e.target.value] })
 
@@ -51,13 +52,13 @@ function FormPage() {
     <div className="h-[calc(100vh-7rem)] flex flex-col justify-center items-center px-10 md:px-20">
       <div className="flex items-start w-full">
         <div className="flex flex-col gap-2">
-          <h1 className="text-lime-600 text-4xl font-bold text-start">
+          <h1 className="text-green-700 text-4xl font-bold text-start">
             {
               !params.id ? "Create Task" : "Update Task"
             }
           </h1>
           {
-            params.id ? <p className="text-xs text-neutral-500">TaskId: {params.id}</p> : ""
+            params.id ? <p className="text-xs text-neutral-700">TaskId: {params.id}</p> : ""
           }
         </div>
       </div>
@@ -68,12 +69,19 @@ function FormPage() {
           className="bg-zinc-800 border-2 border-zinc-700 w-full p-4 rounded-lg my-4"></textarea>
       </form>
       <div className="flex gap-2 w-full">
-        <button className="bg-green-600 py-2 px-4 font-semibold text-neutral-300 rounded-lg">
+        <button onClick={handleSubmit} className="bg-green-700 py-2 px-4 font-semibold text-neutral-300 rounded-lg">
           Save
         </button>
-        <button className="py-2 px-4 bg-red-600 font-semibold text-neutral-300 rounded-lg">
-          Delete
-        </button>
+        {
+          params.id ? <button
+            type="button"
+            className="py-2 px-4 bg-red-700 font-semibold text-neutral-300 rounded-lg"
+            onClick={handleDelete}
+          >
+            Delete
+          </button> : ""
+        }
+
       </div>
     </div>
   )

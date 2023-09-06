@@ -1,8 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+<<<<<<< HEAD
 import { useRouter } from "next/navigation"
 import { useParams } from "next/navigation"
+=======
+import { useRouter, useParams } from "next/navigation"
+>>>>>>> a2a307b6e3283f81403309ec323e9003c71981b7
 
 function FormPage() {
   const [newTask, setNewTask] = useState({
@@ -12,6 +16,12 @@ function FormPage() {
 
   const router = useRouter()
   const params = useParams()
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    console.log(params)
+  }, [])
+>>>>>>> a2a307b6e3283f81403309ec323e9003c71981b7
 
   const createTask = async () => {
     console.log("creating task")

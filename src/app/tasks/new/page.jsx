@@ -17,8 +17,8 @@ function FormPage() {
     const res = await fetch(`/api/tasks/${params.id}`)
     const taskData = await res.json()
     setNewTask({
-      title: taskData.message.title,
-      description: taskData.message.description
+      title: [taskData.message.title],
+      description: [taskData.message.description]
     })
   }
 
@@ -45,6 +45,7 @@ function FormPage() {
     }
 
   }
+  console.log(newTask)
 
   const updateTask = async () => {
     try {
